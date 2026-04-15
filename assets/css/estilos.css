@@ -1,0 +1,28 @@
+/* Eliminamos margenes y rellenos por defecto de todos los elementos */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Evitamos problemas con las fuentes */
+html {
+    font-size: 16px;
+}
+
+/* Quitamos estilos por defecto de las listas */
+ul {
+    list-style: none;
+}
+
+/* Quitamos el subrayado de los enlaces */
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* Evitamos problemas con las imagenes */
+img {
+    max-width: 100%;
+    display: block;
+}
