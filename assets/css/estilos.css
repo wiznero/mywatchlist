@@ -167,7 +167,8 @@ nav a:hover span{
     border: none;
     outline: none;
     font-size: 1.25em;
-    background-color: gray;
+    background-color: white;
+    cursor: text;
 }
 .searchBox .search ion-icon {
     color: var(--color-negro);
