@@ -1,4 +1,6 @@
-
+<?php
+require_once __DIR__ . '/session.php';
+?>
 
 
 <!DOCTYPE html>
@@ -12,4 +14,6 @@
 </head>
 <body>
     <!--  incluimos el navbar en todas las paginas -->
-    <?php include __DIR__ . '/navbar.php'; ?>
+    <?php
+    include __DIR__ . '/navbar.php';
+    ?>

@@ -5,6 +5,11 @@ require_once __DIR__ . '/../includes/conexion.php';
 include __DIR__ . '/../includes/header.php';
 ?>
 
+
+<?php if (isset($_SESSION['usuario_nombre'])): ?>
+    <h2>Bienvenido, <?= $_SESSION['usuario_nombre'] ?></h2>
+<?php endif; ?>
+
 <main>
     <p>Bienvenidos a Mywatchlist</p>
 </main>
