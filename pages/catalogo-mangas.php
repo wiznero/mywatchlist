@@ -6,7 +6,7 @@ include __DIR__ . '/../includes/header.php';
 ?>
 
 <main>
-    <p>Bienvenidos a Mywatchlist</p>
+    <h1>Catalogo de mangas</h1>
 </main>
 
 <?php

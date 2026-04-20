@@ -5,8 +5,16 @@ require_once 'includes/conexion.php';
 include 'includes/header.php';
 ?>
 
+
 <main>
-    <p>Bienvenidos a Mywatchlist</p>
+<?php 
+if (isset($_SESSION['usuario_nombre'])) {
+    echo "<h2>Bienvenido, " . htmlspecialchars($_SESSION['usuario_nombre']) . "</h2>";
+} else {
+    echo "Bienvenidos a Mywatchlist";
+}
+?>
+    <p>Lleva el control de tu anime y manga favorito</p>
 </main>
 
 <?php

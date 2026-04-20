@@ -10,7 +10,7 @@ require_once __DIR__ . '/../includes/proteger.php';
 
 
 <?php if (isset($_SESSION['usuario_nombre'])): ?>
-    <h2>Bienvenido, <?= $_SESSION['usuario_nombre'] ?></h2>
+    <h2>Bienvenido, <?= htmlspecialchars($_SESSION['usuario_nombre']) ?></h2>
 <?php endif; ?>
 
 <main>
