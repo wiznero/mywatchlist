@@ -5,15 +5,4 @@ require_once __DIR__ . '/../includes/conexion.php';
 include __DIR__ . '/../includes/header.php';
 // protegemos las paginas a las que solo se accede con cuenta
 require_once __DIR__ . '/../includes/proteger.php';
-
-
-?>
-
-<main>
-    <p>MI LISTA PERSONAL</p>
-</main>
-
-<?php
-// cargamos el footer
-include __DIR__ . '/../includes/footer.php';
 ?>
