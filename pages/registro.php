@@ -1,5 +1,6 @@
 
 <?php
+session_start(); // abre la sesión, va siempre al principio
 require_once __DIR__ . '/../includes/conexion.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -17,14 +18,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }elseif (strlen($pass) < 10) {
             $error = "La contraseña tiene que tener al menos 10 caracteres";
         }else {
-            $consulta = $conexion->prepare("SELECT id FROM usuarios WHERE email = ? OR user = ?");
+            $consulta = $conn->prepare("SELECT id FROM usuarios WHERE email = ? OR user = ?");
             $consulta->execute([$email, $nombre]);
             $usuario_existe = $consulta->fetch();
             if ($usuario_existe) {
                 $error = "El email o el nombre de usuario ya están en uso";
             }else {
                 $pass = password_hash($pass, PASSWORD_DEFAULT);
-                $conn_Insert = $conexion->prepare("INSERT INTO usuarios (user, contraseña, email) VALUES (?,?,?)");
+                $conn_Insert = $conn->prepare("INSERT INTO usuarios (user, contraseña, email) VALUES (?,?,?)");
                 $conn_Insert->execute([$nombre,$pass,$email]);
                 header('Location: /mywatchlist/pages/registro.php?registro=exitoso');
                 exit();
@@ -38,6 +39,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     } elseif ($_POST['accion'] == 'login') {
         $email = $_POST['email'];
         $pass = $_POST['password'];
+
+        $consulta_log = $conn->prepare("SELECT id, user, contraseña FROM usuarios WHERE email = ?");
+        $consulta_log->execute([$email]);
+        $usuario_existe = $consulta_log->fetch();
+            if (!$usuario_existe || !password_verify($pass, $usuario_existe['contraseña'])) {
+                $error = "El email no existe";
+            } else {
+                $_SESSION['usuario_id'] = $usuario_existe['id'];     // guardas datos
+                $_SESSION['usuario_nombre'] = $usuario_existe['user']; // guardas más datos
+
+                //volvemos a la pagina principal
+                header('Location: /mywatchlist/index.php');
+                exit();
+            }
     }
 }
 ?>
@@ -70,6 +85,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <input type="email" name="email" placeholder="Email">
                 <input type="password" name="password" placeholder="Contraseña">
                 <input type="hidden" name="accion" value="registro">
+                <?php if (isset($error)): ?>
+                <p class="error"><?= $error ?></p>
+                <?php endif; ?>
+
+                <?php if (isset($_GET['registro']) && $_GET['registro'] == 'exitoso'): ?>
+                <p class="exito">¡Cuenta creada correctamente!</p>
+                <?php endif; ?>
                 <button>Crear cuenta</button>
             </form>
         </div>

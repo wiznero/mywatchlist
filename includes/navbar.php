@@ -22,7 +22,7 @@
                 <li><a href="/mywatchlist/pages/catalogo-animes.php">Anime<span></span></a></li>
                 <li><a href="/mywatchlist/pages/catalogo-mangas.php">Manga<span></span></a></li>
                 <li><a href="/mywatchlist/pages/mi_lista.php">Mi lista<span></span></a></li>
-                <li><a href="/mywatchlist/pages/perfil.php">Perfil<span></span></a></li>
+                <li><a href="/mywatchlist/pages/registro.php">Log in<span></span></a></li>
             </ul>
         </div>
     </nav>
