@@ -11,15 +11,13 @@
             </div>
             <div class="searchBox">
                 <div class="search">
-                    <!-- <ion-icon name="search-outline"></ion-icon> -->
-                    🔍
+                    <ion-icon name="search-outline"></ion-icon>
                 </div>
                 <div class="searchInput">
                     <input type="text" placeholder="buscar... ">
                 </div> 
                 <div class="close">
-                    <!-- <ion-icon name="close-outline"></ion-icon> -->
-                    ✕
+                    <ion-icon name="close-outline"></ion-icon>
                 </div>
             </div>
             <ul class="nav-menu">

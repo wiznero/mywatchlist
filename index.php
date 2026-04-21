@@ -7,14 +7,22 @@ include 'includes/header.php';
 
 
 <main>
-<?php 
-if (isset($_SESSION['usuario_nombre'])) {
-    echo "<h2>Bienvenido, " . htmlspecialchars($_SESSION['usuario_nombre']) . "</h2>";
-} else {
-    echo "Bienvenidos a Mywatchlist";
-}
-?>
-    <p>Lleva el control de tu anime y manga favorito</p>
+    <section class="hero">
+        <div class="texto-hero">
+            <?php if (isset($_SESSION['usuario_nombre'])): ?>
+                <h2>Bienvenido, <?= $_SESSION['usuario_nombre'] ?></h2>
+            <?php else: ?>
+                <h2>Tu mundo anime, organizado</h2>
+            <?php endif; ?>
+            <p>Lleva el control de tu anime y manga favorito</p>
+            <div class="hero-botones">
+                <a href="/mywatchlist/pages/catalogo-animes.php" class="btn-primary">Explorar</a>
+                <?php if (!isset($_SESSION['usuario_id'])): ?>
+                    <a href="/mywatchlist/pages/registro.php" class="btn-secondary">Crear cuenta</a>
+                <?php endif; ?>
+            </div>
+        </div>
+    </section>
 </main>
 
 <?php

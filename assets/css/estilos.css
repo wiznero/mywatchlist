@@ -204,3 +204,23 @@ ion-icon {
     justify-content: center;
 }
 
+.hero {
+    min-height: 650px;
+    background-image: url('../img/img_site/libro.png');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.texto-hero {
+    width: 40%;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    left: 80px;
+}
+
+
+
