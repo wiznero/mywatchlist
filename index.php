@@ -5,6 +5,15 @@ require_once 'includes/conexion.php';
 include 'includes/header.php';
 ?>
 
+<?php
+// llamamos a Jikan para traer el top de animes
+$respuesta = file_get_contents('https://api.jikan.moe/v4/top/anime?limit=6');
+$datos = json_decode($respuesta, true);
+$top_animes = $datos['data'];
+
+
+?>
+
 
 <main>
     <section class="hero">
@@ -27,6 +36,13 @@ include 'includes/header.php';
     <section>
         <div class="container-tarjetas anime">
             <h2>Top Animes</h2>
+            <?php foreach ($top_animes as $anime): ?>
+            <div class="tarjeta">
+                <img src="<?= $anime['images']['jpg']['large_image_url'] ?>" alt="">
+                <p><?= $anime['title'] ?></p>
+                <p><?= $anime['score'] ?></p>
+            </div>
+            <?php endforeach; ?>
         </div>
         <hr>
         <div class="container-tarjetas manga">
