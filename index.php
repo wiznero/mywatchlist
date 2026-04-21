@@ -23,6 +23,11 @@ include 'includes/header.php';
             </div>
         </div>
     </section>
+    <section>
+        <div class="container-tarjetas">
+            <p>AQUI VAN LOS ANIMES</p>
+        </div>
+    </section>
 </main>
 
 <?php
