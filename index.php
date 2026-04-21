@@ -23,9 +23,14 @@ include 'includes/header.php';
             </div>
         </div>
     </section>
+    <hr>
     <section>
-        <div class="container-tarjetas">
-            <p>AQUI VAN LOS ANIMES</p>
+        <div class="container-tarjetas anime">
+            <h2>Top Animes</h2>
+        </div>
+        <hr>
+        <div class="container-tarjetas manga">
+            <h2>Top Mangas</h2>
         </div>
     </section>
 </main>

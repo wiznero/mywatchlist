@@ -195,7 +195,7 @@ ion-icon {
     border-radius: 8px;
     padding: 10px;
     right: 0;
-    top: 90px;
+    top: 130px;
 }
 
 .desplegable:hover .desplegable-menu {
@@ -237,6 +237,10 @@ ion-icon {
     padding: 20px 20px;
     border-radius: 25px;
     background-color: var(--color-rosa);
+}
+
+.btn-primary:hover{
+    background-color:purple;
 }
 
 
