@@ -250,6 +250,10 @@ ion-icon {
     text-align: center;
     overflow: hidden;
     position: relative;
+    color: var(--color-rosa);
+    background-image: url('../img/img_site/fondo1.png');
+    background-size: cover;
+    background-position: center;
 }
 
 .banner .slider {
@@ -295,6 +299,30 @@ ion-icon {
     display: flex;
     flex-wrap: wrap;
 }
+
+.banner .text-content h2{
+    font-size: 8em;
+    line-height: 1em;
+}
+
+/* .top {
+    background-image: url('../img/img_site/fondo1.png');
+    background-size: cover;
+    background-position: center;
+    min-height: 100vh;
+} */
+
+.banner::before{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 0;
+}
+
 
 
 

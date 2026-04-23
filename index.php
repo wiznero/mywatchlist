@@ -36,7 +36,8 @@ $top_mangas = $datos_manga['data'];
         </div>
     </section>
     <hr>
-    <section> 
+    <section class="top"> 
+        <!-- SECCION TOP ANIMES -->
         <div class="banner">
             <div class="slider" style="--quantity: <?= count($top_animes) ?>">
                 <?php foreach ($top_animes as $indice => $anime): ?>
@@ -55,6 +56,7 @@ $top_mangas = $datos_manga['data'];
         </div>
         <hr>
         <hr>
+        <!-- SECCION TOP MANGAS -->
         <div class="banner">
             <div class="slider" style="--quantity: <?= count($top_mangas) ?>">
                 <?php foreach ($top_mangas as $indice => $manga): ?>
