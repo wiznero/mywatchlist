@@ -42,7 +42,9 @@ $top_mangas = $datos_manga['data'];
             <div class="slider" style="--quantity: <?= count($top_animes) ?>">
                 <?php foreach ($top_animes as $indice => $anime): ?>
                     <div class="item" style="--position: <?= $indice + 1?>">
+                        <a href="/mywatchlist/pages/detalle.php?id=<?= $anime['mal_id'] ?>&tipo=anime">
                         <img src="<?= $anime['images']['jpg']['large_image_url'] ?>" alt="">
+                        </a>
                         <div class="content">
                             <p><?= $anime['title'] ?></p>
                             <p><?= $anime['score'] ?></p>
@@ -54,14 +56,14 @@ $top_mangas = $datos_manga['data'];
                 <h2>TOP ANIMES: </h2>
             </div>
         </div>
-        <hr>
-        <hr>
         <!-- SECCION TOP MANGAS -->
         <div class="banner">
             <div class="slider" style="--quantity: <?= count($top_mangas) ?>">
                 <?php foreach ($top_mangas as $indice => $manga): ?>
                     <div class="item" style="--position: <?= $indice + 1?>">
+                        <a href="/mywatchlist/pages/detalle.php?id=<?= $manga['mal_id'] ?>&tipo=manga">
                         <img src="<?= $manga['images']['jpg']['large_image_url'] ?>" alt="">
+                        </a>
                         <div class="content">
                             <p><?= $manga['title'] ?></p>
                             <p><?= $manga['score'] ?></p>
