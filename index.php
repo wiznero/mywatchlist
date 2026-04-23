@@ -10,7 +10,10 @@ include 'includes/header.php';
 $respuesta = file_get_contents('https://api.jikan.moe/v4/top/anime?limit=6');
 $datos = json_decode($respuesta, true);
 $top_animes = $datos['data'];
-
+// llamamos a Jikan para traer el top de Mangas
+$respuesta_manga = file_get_contents('https://api.jikan.moe/v4/top/manga?limit=6');
+$datos_manga = json_decode($respuesta_manga, true);
+$top_mangas = $datos_manga['data'];
 
 ?>
 
@@ -33,21 +36,42 @@ $top_animes = $datos['data'];
         </div>
     </section>
     <hr>
-    <section>
-        <div class="container-tarjetas anime">
-            <h2>Top Animes</h2>
-            <?php foreach ($top_animes as $anime): ?>
-            <div class="tarjeta">
-                <img src="<?= $anime['images']['jpg']['large_image_url'] ?>" alt="">
-                <p><?= $anime['title'] ?></p>
-                <p><?= $anime['score'] ?></p>
+    <section> 
+        <div class="banner">
+            <div class="slider" style="--quantity: <?= count($top_animes) ?>">
+                <?php foreach ($top_animes as $indice => $anime): ?>
+                    <div class="item" style="--position: <?= $indice + 1?>">
+                        <img src="<?= $anime['images']['jpg']['large_image_url'] ?>" alt="">
+                        <div class="content">
+                            <p><?= $anime['title'] ?></p>
+                            <p><?= $anime['score'] ?></p>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
             </div>
-            <?php endforeach; ?>
+            <div class="text-content">
+                <h2>TOP ANIMES: </h2>
+            </div>
         </div>
         <hr>
-        <div class="container-tarjetas manga">
-            <h2>Top Mangas</h2>
+        <hr>
+        <div class="banner">
+            <div class="slider" style="--quantity: <?= count($top_mangas) ?>">
+                <?php foreach ($top_mangas as $indice => $manga): ?>
+                    <div class="item" style="--position: <?= $indice + 1?>">
+                        <img src="<?= $manga['images']['jpg']['large_image_url'] ?>" alt="">
+                        <div class="content">
+                            <p><?= $manga['title'] ?></p>
+                            <p><?= $manga['score'] ?></p>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+            <div class="text-content">
+                <h2>TOP MANGAS: </h2>
+            </div>
         </div>
+
     </section>
 </main>
 
