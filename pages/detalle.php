@@ -1,46 +1,68 @@
 <?php
-require_once __DIR__ . '/../includes/conexion.php';
-include __DIR__ . '/../includes/header.php';
-
 if (isset($_GET['id']) && isset($_GET['tipo'])) {
     $id = $_GET['id'];
     $tipo = $_GET['tipo'];
+}
+
+if (!$id) {
+    header('Location: index.php');
+    exit;
 }
 
 // llamamos a Jikan 
 $respuesta = file_get_contents("https://api.jikan.moe/v4/{$tipo}/{$id}");
 $datos = json_decode($respuesta, true);
 $item = $datos['data'];
+
+
+if (strtolower($tipo) == 'anime') {
+    $total_entregas = $item['episodes'] ?? '00';
+    $etiqueta = 'Episodios';
+    //accedemos al primer estudio
+    $estudio = $item['studios'][0]['name'] ?? 'Estudio desconocido';
+    $unidad_medida = 'ep'; //para el formulario de progreso
+}else {
+    $total_entregas = $item['chapters'] ?? '00';
+    $etiqueta = 'Capitulos';
+    $estudio = $item['authors'][0]['name'] ?? 'Autor desconocido';
+    $unidad_medida = 'ch'; //para el formulario de progreso
+};
+
+//inclimos los demas archivos
+require_once __DIR__ . '/../includes/conexion.php';
+include __DIR__ . '/../includes/header.php';
 ?>
 
 <div class="contenedor-detalle">
 
     <div class="cabecera-detalle">
         <div class="portada">
-            <!-- Imagen de portada: $item['images']['webp']['large_image_url'] -->
+           <img src="<?= $item['images']['jpg']['large_image_url'] ?? 'MYWATCHLIST//assets/img/img_site/astronauta.png' ?>" alt="Portada de <?= $item['title'] ?? 'Anime'?>">
         </div>
 
         <div class="info-cabecera">
             <div class="etiquetas">
-                <span class="etiqueta etiqueta-tipo">Anime/Manga</span>
-                <span class="etiqueta etiqueta-estado">Estado</span>
+                <span class="etiqueta etiqueta-tipo"><?= ucfirst($tipo)  ?></span>
+                <span class="etiqueta etiqueta-estado"><?=  $item['status'] ?></span>
             </div>
 
-            <h1 class="titulo">Título del anime</h1>
-            <h2 class="subtitulo-estudio">Nombre del estudio</h2>
+            <h1 class="titulo"><?= $item['title'] ?></h1>
+            <h1 class="subtitulo-estudio"><?= $estudio ?></h1>
+
+
 
             <div class="metricas">
                 <div class="metrica">
                     <span class="metrica-label">Puntuación</span>
-                    <span class="metrica-valor">0.0</span>
+                    <span class="metrica-valor"><?= $item['score'] ?? '0.0' ?></span>
                 </div>
                 <div class="metrica">
-                    <span class="metrica-label">Episodios</span>
-                    <span class="metrica-valor">00</span>
+                    <span class="metrica-label"><?= $etiqueta ?></span>
+                    <span class="metrica-valor"><?= $total_entregas ?></span>
                 </div>
                 <div class="metrica">
                     <span class="metrica-label">Popularidad</span>
-                    <span class="metrica-valor">#0k</span>
+                    <span class="metrica-valor"><?= $item['popularity'] ?? '#0k' ?></span>
                 </div>
             </div>
         </div>
@@ -53,20 +75,24 @@ $item = $datos['data'];
             <section class="seccion-generos">
                 <h3>Géneros</h3>
                 <div class="chips">
-                    <span class="chip">Género 1</span>
-                    <span class="chip">Género 2</span>
-                    <span class="chip">Género 3</span>
+                    <?php if (!empty($item['genres'])): ?>
+                        <?php foreach ($item['genres'] as $genero): ?>
+                            <span class="chip"><?= $genero['name'] ?></span>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <span class="chip">Sin géneros</span>
+                    <?php endif; ?>
                 </div>
             </section>
 
             <section class="seccion-estudio">
                 <h3>Estudio</h3>
-                <p class="nombre-estudio">Nombre del estudio</p>
+                <p class="nombre-estudio"><?= $estudio ?></p>
             </section>
 
             <section class="seccion-sinopsis">
                 <h3>Sinopsis</h3>
-                <p class="sinopsis">Texto de la sinopsis...</p>
+                <p class="sinopsis"><?= $item['synopsis'] ?? 'No hay una sinopsis disponible.'?></p>
             </section>
         </div>
 
@@ -74,6 +100,7 @@ $item = $datos['data'];
             
             <section class="bloque-lista-usuario">
                 <h3>Tu lista</h3>
+                 <!-- Formulario de progreso -->
                 <form action="#">
                     <div class="grupo-form">
                         <label for="estado">Estado</label>
@@ -87,12 +114,12 @@ $item = $datos['data'];
 
                     <div class="grupo-form">
                         <label for="calificacion">Calificación: <span id="calificacion-valor">0</span>/10</label>
-                        <input type="range" id="calificacion" min="0" max="10" value="0" class="slider-neon" oninput="document.getElementById('calificacion-valor').innerText = this.value">
+                        <input type="range" id="calificacion" min="0" max="10" value="0" class="slider-neon">
                     </div>
 
                     <div class="grupo-form">
-                        <label for="progreso">Progreso: <span id="progreso-valor">0</span>/00 ep</label>
-                        <input type="range" id="progreso" min="0" max="100" value="0" class="slider-neon" oninput="document.getElementById('progreso-valor').innerText = this.value">
+                        <label for="progreso">Progreso: <span id="progreso-valor">0</span>/<?= $total_entregas ?> <?= $unidad_medida ?></label>
+                        <input type="range" id="progreso" min="0" max="<?= is_numeric($total_entregas) ? $total_entregas : 100 ?>" value="0" class="slider-neon">
                     </div>
 
                     <div class="grupo-form">
