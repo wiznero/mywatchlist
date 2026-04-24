@@ -275,7 +275,7 @@ ion-icon {
     position: absolute;
     width: 200px;
     height: 250px;
-    top: 10%;
+    top: 50%;
     left: calc(50% - 100px);
     transform-style: preserve-3d;
     transform: perspective(1000px);
@@ -284,9 +284,9 @@ ion-icon {
 
 @keyframes autoRun {
     from{
-        transform: perspective(1000px) rotateX(-15deg) rotateY(0deg);
+        transform: perspective(1000px) rotateX(-10deg) rotateY(0deg);
     }to {
-        transform: perspective(1000px) rotateX(-15deg) rotateY(360deg);
+        transform: perspective(1000px) rotateX(-10deg) rotateY(360deg);
     }
 }
 
@@ -295,7 +295,7 @@ ion-icon {
     inset: 0 0 0 0;
     transform:
         rotateY(calc( (var(--position) - 1) * (360deg / var(--quantity)) )) 
-        translateZ(550px);
+        translateZ(350px);
 }
 .banner .slider .item img {
     width: 100%;

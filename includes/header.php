@@ -10,6 +10,8 @@ require_once __DIR__ . '/session.php';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MyWatchlist</title>
     <link rel="stylesheet" href="/mywatchlist/assets/css/estilos.css">
+    <link rel="stylesheet" href="/mywatchlist/assets/css/estilos-detalle.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
     <!-- otros links -->
 </head>
 <body>
