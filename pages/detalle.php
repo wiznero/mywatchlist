@@ -4,8 +4,8 @@ if (isset($_GET['id']) && isset($_GET['tipo'])) {
     $tipo = $_GET['tipo'];
 }
 
-if (!$id) {
-    header('Location: index.php');
+if (!isset($_GET['id']) || !isset($_GET['tipo'])) {
+    header('Location: /mywatchlist/index.php');
     exit;
 }
 
@@ -37,7 +37,7 @@ include __DIR__ . '/../includes/header.php';
 
     <div class="cabecera-detalle">
         <div class="portada">
-           <img src="<?= $item['images']['jpg']['large_image_url'] ?? 'MYWATCHLIST//assets/img/img_site/astronauta.png' ?>" alt="Portada de <?= $item['title'] ?? 'Anime'?>">
+           <img src="<?= $item['images']['jpg']['large_image_url'] ?? '/mywatchlist/assets/img/img_site/astronauta.png' ?>" alt="Portada de <?= $item['title'] ?? 'Anime'?>">
         </div>
 
         <div class="info-cabecera">
@@ -47,7 +47,7 @@ include __DIR__ . '/../includes/header.php';
             </div>
 
             <h1 class="titulo"><?= $item['title'] ?></h1>
-            <h1 class="subtitulo-estudio"><?= $estudio ?></h1>
+            <h2 class="subtitulo-estudio"><?= $estudio ?></h2>
 
 
 
@@ -62,7 +62,7 @@ include __DIR__ . '/../includes/header.php';
                 </div>
                 <div class="metrica">
                     <span class="metrica-label">Popularidad</span>
-                    <span class="metrica-valor"><?= $item['popularity'] ?? '#0k' ?></span>
+                    <span class="metrica-valor">#<?= $item['popularity'] ?? '0' ?></span>
                 </div>
             </div>
         </div>
