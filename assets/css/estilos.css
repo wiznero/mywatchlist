@@ -184,13 +184,13 @@ ion-icon {
     pointer-events: none;
 }
 
+/* imagen de perfil  ---------------------*/
 .foto-perfil {
     width: 40px;
     height: 40px;
     border-radius: 50%;
     object-fit: cover;
     cursor: pointer;
-    margin-top: -10px;
 }
 
 .desplegable-menu {
@@ -200,7 +200,7 @@ ion-icon {
     border-radius: 8px;
     padding: 10px;
     right: 0;
-    top: 130px;
+    top: 50px;
 }
 
 .desplegable:hover .desplegable-menu {

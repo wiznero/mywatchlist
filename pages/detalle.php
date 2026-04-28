@@ -101,10 +101,13 @@ include __DIR__ . '/../includes/header.php';
             <section class="bloque-lista-usuario">
                 <h3>Tu lista</h3>
                  <!-- Formulario de progreso -->
-                <form action="#">
+                <form action="#" method="POST">
+                    <input type="hidden" name="item_id" value="<?= $id ?>">
+                    <input type="hidden" name="item_tipo" value="<?= $tipo ?>">
+                    
                     <div class="grupo-form">
                         <label for="estado">Estado</label>
-                        <select id="estado" class="input-oscuro">
+                        <select id="estado" name="estado" class="input-oscuro">
                             <option value="viendo">Viendo</option>
                             <option value="completado">Completado</option>
                             <option value="planeado">Planeado</option>
@@ -114,17 +117,17 @@ include __DIR__ . '/../includes/header.php';
 
                     <div class="grupo-form">
                         <label for="calificacion">Calificación: <span id="calificacion-valor">0</span>/10</label>
-                        <input type="range" id="calificacion" min="0" max="10" value="0" class="slider-neon">
+                        <input type="range" id="calificacion" name="calificacion" min="0" max="10" value="0" class="slider-neon">
                     </div>
 
                     <div class="grupo-form">
                         <label for="progreso">Progreso: <span id="progreso-valor">0</span>/<?= $total_entregas ?> <?= $unidad_medida ?></label>
-                        <input type="range" id="progreso" min="0" max="<?= is_numeric($total_entregas) ? $total_entregas : 100 ?>" value="0" class="slider-neon">
+                        <input type="range" id="progreso" name="progreso" min="0" max="<?= is_numeric($total_entregas) ? $total_entregas : 100 ?>" value="0" class="slider-neon">
                     </div>
 
                     <div class="grupo-form">
                         <label for="notas">Notas</label>
-                        <textarea id="notas" class="input-oscuro" placeholder="Escribe tus notas aquí..."></textarea>
+                        <textarea id="notas" name="notas" class="input-oscuro" placeholder="Escribe tus notas aquí..."></textarea>
                     </div>
 
                     <div class="acciones">

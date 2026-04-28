@@ -11,7 +11,12 @@
 }
 
 body{
-    background-color: var(--color-negro);
+    background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('../img/img_site/fondo1.png');
+    background-size: cover;
+    background-attachment: fixed;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
     color: var(--color-rosa);
     display: flex;
     justify-content: center;
