@@ -52,7 +52,7 @@ if (strtolower($tipo) == 'anime') {
     $estudio = $item['studios'][0]['name'] ?? 'Estudio desconocido';
     $unidad_medida = 'ep'; //para el formulario de progreso
 }else {
-    $total_entregas = $item['chapters'] ?? '00';
+    $total_entregas = $item['chapters'] ?? '?';
     $etiqueta = 'Capitulos';
     $estudio = $item['authors'][0]['name'] ?? 'Autor desconocido';
     $unidad_medida = 'ch'; //para el formulario de progreso
@@ -160,7 +160,7 @@ include __DIR__ . '/../includes/header.php';
 
                         <div class="grupo-form">
                             <label for="progreso">Progreso: <span id="progreso-valor"><?= $progreso_usuario['progreso'] ?? 0 ?></span>/<?= $total_entregas ?> <?= $unidad_medida ?></label>
-                            <input type="range" id="progreso" name="progreso" min="0" max="<?= is_numeric($total_entregas) ? $total_entregas : 100 ?>" value="<?= $progreso_usuario['progreso'] ?? 0 ?>" class="slider-neon">
+                            <input type="range" id="progreso" name="progreso" min="0" max="<?= is_numeric($total_entregas) ? $total_entregas : 9999 ?>" value="<?= $progreso_usuario['progreso'] ?? 0 ?>" class="slider-neon">
                         </div>
 
                         <div class="grupo-form">
