@@ -7,7 +7,7 @@
     <nav>
         <div class="nav-container">
             <div class="nav-logo">
-                <a href="/mywatchlist/index.php"><img src="/mywatchlist/assets/img/img_site/transparent-logo.png" alt=""></a>
+                <a href="/mywatchlist/index.php"><img src="/mywatchlist/assets/img/img_site/logo-recortao.png" alt=""></a>
             </div>
             <div class="searchBox">
                 <div class="search">

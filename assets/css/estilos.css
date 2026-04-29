@@ -54,7 +54,6 @@ nav a{
     font-weight: 500;
     color: var(--color-texto);
     text-decoration: none;
-    padding: 6px 20px;
     transition: .5s;
     display: inline-block;
 }
@@ -75,6 +74,7 @@ nav a span{
     transform: scale(0) translateY(50px);
     opacity: 0;
     transition: .5s;
+    pointer-events: none;
 }
 
 nav a:hover span{
@@ -105,6 +105,10 @@ nav a:hover span{
 .nav-menu {
     display: flex;
     gap: 20px;
+}
+
+.nav-menu a{
+    padding: 6px 20px;
 }
 
 .searchBox {

@@ -1,5 +1,5 @@
 <?php
-//inclimos los demas archivos
+//inclimos la conexion a la bbdd y la sesion para el progreso de usuario
 require_once __DIR__ . '/../includes/conexion.php';
 require_once __DIR__ . '/../includes/session.php';
 
@@ -14,6 +14,7 @@ if (!isset($_GET['id']) || !isset($_GET['tipo'])) {
     exit;
 }
 
+// si el formulario se ha enviado, guardamos el progreso en la bbdd
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $id_usuario = $_SESSION['usuario_id'] ?? null;
     $item_id = $_POST['item_id'] ?? null;
@@ -23,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $progreso = $_POST['progreso'] ?? 0;
     $notas = $_POST['notas'] ?? '';
 
-
+    // usamos la consulta on DUPLICATE KEY UPDATE para insertar o actualizar el progreso del usuario
     $añadir_lista = $conn->prepare("INSERT INTO lista_usuarios (id_usuarios, mal_id, tipo, estado, calificacion, progreso, notas)
     VALUES (?, ?, ?, ?, ?, ?, ?)
     ON DUPLICATE KEY UPDATE 
@@ -37,13 +38,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
 }
-
-
-
-
-
-
-
 
 // llamamos a Jikan 
 $respuesta = file_get_contents("https://api.jikan.moe/v4/{$tipo}/{$id}");
@@ -64,13 +58,14 @@ if (strtolower($tipo) == 'anime') {
     $unidad_medida = 'ch'; //para el formulario de progreso
 };
 
+// si el usuario esta logueado, traemos su progreso
 if (isset($_SESSION['usuario_id'])) {
 $consulta = $conn->prepare("SELECT estado, calificacion, progreso, notas FROM lista_usuarios WHERE id_usuarios = ? AND mal_id = ? AND tipo = ?");
 $consulta->execute([$_SESSION['usuario_id'] ?? 0, $id, $tipo]);
 $progreso_usuario = $consulta->fetch();
 }
 
-//inclimos los demas archivos
+//inclimos el header
 include __DIR__ . '/../includes/header.php';
 ?>
 
