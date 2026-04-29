@@ -1,4 +1,9 @@
 <?php
+//inclimos los demas archivos
+require_once __DIR__ . '/../includes/conexion.php';
+require_once __DIR__ . '/../includes/session.php';
+
+
 if (isset($_GET['id']) && isset($_GET['tipo'])) {
     $id = $_GET['id'];
     $tipo = $_GET['tipo'];
@@ -8,6 +13,37 @@ if (!isset($_GET['id']) || !isset($_GET['tipo'])) {
     header('Location: /mywatchlist/index.php');
     exit;
 }
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $id_usuario = $_SESSION['usuario_id'] ?? null;
+    $item_id = $_POST['item_id'] ?? null;
+    $item_tipo = $_POST['item_tipo'] ?? null;
+    $estado = $_POST['estado'] ?? '';
+    $calificacion = $_POST['calificacion'] ?? 0;
+    $progreso = $_POST['progreso'] ?? 0;
+    $notas = $_POST['notas'] ?? '';
+
+
+    $añadir_lista = $conn->prepare("INSERT INTO lista_usuarios (id_usuarios, mal_id, tipo, estado, calificacion, progreso, notas)
+    VALUES (?, ?, ?, ?, ?, ?, ?)
+    ON DUPLICATE KEY UPDATE 
+        estado = VALUES(estado),
+        calificacion = VALUES(calificacion),
+        progreso = VALUES(progreso),
+        notas = VALUES(notas)");
+    $añadir_lista->execute([$id_usuario, $item_id, $item_tipo, $estado, $calificacion, $progreso, $notas]);
+    header("Location: detalle.php?id={$item_id}&tipo={$item_tipo}&guardado=1");
+    exit;
+
+
+}
+
+
+
+
+
+
+
 
 // llamamos a Jikan 
 $respuesta = file_get_contents("https://api.jikan.moe/v4/{$tipo}/{$id}");
@@ -28,10 +64,17 @@ if (strtolower($tipo) == 'anime') {
     $unidad_medida = 'ch'; //para el formulario de progreso
 };
 
+if (isset($_SESSION['usuario_id'])) {
+$consulta = $conn->prepare("SELECT estado, calificacion, progreso, notas FROM lista_usuarios WHERE id_usuarios = ? AND mal_id = ? AND tipo = ?");
+$consulta->execute([$_SESSION['usuario_id'] ?? 0, $id, $tipo]);
+$progreso_usuario = $consulta->fetch();
+}
+
 //inclimos los demas archivos
-require_once __DIR__ . '/../includes/conexion.php';
 include __DIR__ . '/../includes/header.php';
 ?>
+
+
 
 <div class="contenedor-detalle">
 
@@ -97,45 +140,48 @@ include __DIR__ . '/../includes/header.php';
         </div>
 
         <div class="columna-derecha">
-            
-            <section class="bloque-lista-usuario">
-                <h3>Tu lista</h3>
-                 <!-- Formulario de progreso -->
-                <form action="#" method="POST">
-                    <input type="hidden" name="item_id" value="<?= $id ?>">
-                    <input type="hidden" name="item_tipo" value="<?= $tipo ?>">
-                    
-                    <div class="grupo-form">
-                        <label for="estado">Estado</label>
-                        <select id="estado" name="estado" class="input-oscuro">
-                            <option value="viendo">Viendo</option>
-                            <option value="completado">Completado</option>
-                            <option value="planeado">Planeado</option>
-                            <option value="abandonado">Abandonado</option>
-                        </select>
-                    </div>
+            <?php if (isset($_SESSION['usuario_id'])): ?>
+                <section class="bloque-lista-usuario">
+                    <h3>Tu lista</h3>
+                    <!-- Formulario de progreso -->
+                    <form action="" method="POST">
+                        <input type="hidden" name="item_id" value="<?= $id ?>">
+                        <input type="hidden" name="item_tipo" value="<?= $tipo ?>">
+                        
+                        <div class="grupo-form">
+                            <label for="estado">Estado</label>
+                            <select id="estado" name="estado" class="input-oscuro">
+                                <option value="viendo" <?= ($progreso_usuario['estado'] ?? '') == 'viendo' ? 'selected' : '' ?>>Viendo</option>
+                                <option value="completado" <?= ($progreso_usuario['estado'] ?? '') == 'completado' ? 'selected' : ''?>>Completado</option>
+                                <option value="planeado" <?= ($progreso_usuario['estado'] ?? '') == 'planeado' ? 'selected' : ''?>>Planeado</option>
+                                <option value="abandonado" <?= ($progreso_usuario['estado'] ?? '') == 'abandonado' ? 'selected' : ''?>>Abandonado</option>
+                            </select>
+                        </div>
 
-                    <div class="grupo-form">
-                        <label for="calificacion">Calificación: <span id="calificacion-valor">0</span>/10</label>
-                        <input type="range" id="calificacion" name="calificacion" min="0" max="10" value="0" class="slider-neon">
-                    </div>
+                        <div class="grupo-form">
+                            <label for="calificacion">Calificación: <span id="calificacion-valor"><?= $progreso_usuario['calificacion'] ?? 0 ?></span>/10</label>
+                            <input type="range" id="calificacion" name="calificacion" min="0" max="10" value="<?= $progreso_usuario['calificacion'] ?? 0 ?>" class="slider-neon">
+                        </div>
 
-                    <div class="grupo-form">
-                        <label for="progreso">Progreso: <span id="progreso-valor">0</span>/<?= $total_entregas ?> <?= $unidad_medida ?></label>
-                        <input type="range" id="progreso" name="progreso" min="0" max="<?= is_numeric($total_entregas) ? $total_entregas : 100 ?>" value="0" class="slider-neon">
-                    </div>
+                        <div class="grupo-form">
+                            <label for="progreso">Progreso: <span id="progreso-valor"><?= $progreso_usuario['progreso'] ?? 0 ?></span>/<?= $total_entregas ?> <?= $unidad_medida ?></label>
+                            <input type="range" id="progreso" name="progreso" min="0" max="<?= is_numeric($total_entregas) ? $total_entregas : 100 ?>" value="<?= $progreso_usuario['progreso'] ?? 0 ?>" class="slider-neon">
+                        </div>
 
-                    <div class="grupo-form">
-                        <label for="notas">Notas</label>
-                        <textarea id="notas" name="notas" class="input-oscuro" placeholder="Escribe tus notas aquí..."></textarea>
-                    </div>
+                        <div class="grupo-form">
+                            <label for="notas">Notas</label>
+                            <textarea id="notas" name="notas" class="input-oscuro" placeholder="Escribe tus notas aquí..."><?= $progreso_usuario['notas'] ?? '' ?></textarea>
+                        </div>
 
-                    <div class="acciones">
-                        <button type="button" class="boton boton-guardar">Guardar</button>
-                        <button type="button" class="boton boton-cancelar">Cancelar</button>
-                    </div>
-                </form>
-            </section>
+                        <div class="acciones">
+                            <button type="submit" class="boton boton-guardar">Guardar</button>
+                            <button type="button" class="boton boton-cancelar">Cancelar</button>
+                        </div>
+                    </form>
+                </section>
+                <?php else: ?>
+                    <p>Inicia sesión para añadir a tu lista</p>
+                <?php endif; ?>
         </div>
 
     </div>
