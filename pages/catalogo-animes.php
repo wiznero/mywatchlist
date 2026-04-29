@@ -40,7 +40,7 @@ include __DIR__ . '/../includes/header.php';
         <div class="grid-lista">
         <?php foreach ($animes_emision as $anime): ?>
             <div class="card-lista" data-tipo="<?= $anime['type'] ?>" data-estado="<?= $anime['status'] ?>">
-                <a href="/mywatchlist/pages/detalle.php?id=<?= $anime['mal_id'] ?>&tipo=<?= $anime['type'] ?>">
+                <a href="/mywatchlist/pages/detalle.php?id=<?= $anime['mal_id'] ?>&tipo=anime">
                     <img src="<?= $anime['images']['jpg']['large_image_url'] ?>" alt="">
                 </a>
                 <h3><?= $anime['title'] ?></h3>
