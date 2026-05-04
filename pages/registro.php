@@ -74,13 +74,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <div class="form-container registro">
             <form action="" method="POST">
                 <h1>Crear cuenta</h1>
-                <div class="iconos">
+                <!-- <div class="iconos">
                     <a href="#" class="icono"><i class="fa-brands fa-google-plus-g"></i></a>
                     <a href="#" class="icono"><i class="fa-brands fa-facebook-f"></i></a>
                     <a href="#" class="icono"><i class="fa-brands fa-twitter"></i></a>
                     <a href="#" class="icono"><i class="fa-brands fa-instagram"></i></a>
-                </div>
-                <span>o registrate con tu correo</span>
+                </div> -->
+                <!-- <span>o registrate con tu correo</span> -->
                 <input type="text" name="nombre" placeholder="Nombre">
                 <input type="email" name="email" placeholder="Email">
                 <input type="password" name="password" placeholder="Contraseña">
@@ -98,13 +98,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <div class="form-container sign-in">
             <form action="" method="POST">
                 <h1>Iniciar sesión</h1>
-                <div class="iconos">
+                <!-- <div class="iconos">
                     <a href="#" class="icono"><i class="fa-brands fa-google-plus-g"></i></a>
                     <a href="#" class="icono"><i class="fa-brands fa-facebook-f"></i></a>
                     <a href="#" class="icono"><i class="fa-brands fa-twitter"></i></a>
                     <a href="#" class="icono"><i class="fa-brands fa-instagram"></i></a>
-                </div>
-                <span>o inicia sesion con tu correo</span>
+                </div> -->
+                <!-- <span>o inicia sesion con tu correo</span> -->
                 <input type="email" name="email" placeholder="Email">
                 <input type="password" name="password" placeholder="Contraseña">
                 <a href="#">¿has olvidado tu contraseña?</a>
