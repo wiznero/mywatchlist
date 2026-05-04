@@ -19,11 +19,25 @@ foreach ($estadisticas_lista as $item) {
     $stats[$item['tipo']][$item['estado']] = $item['total'];
 }
 
+// consulta para obtener la actividad reciente
+$consulta_actividad = $conn->prepare("SELECT * FROM lista_usuarios WHERE id_usuarios = ? ORDER BY actualizado_en DESC LIMIT 5");
+$consulta_actividad->execute([$_SESSION['usuario_id']]);
+$actividad = $consulta_actividad->fetchAll(PDO::FETCH_ASSOC);
+
 // formateamos para que solo nos de la fecha, no la hora
 date('d/m/Y', strtotime($perfil['fecha_registro']));
 
 
-
+// llamamos a Jikan en un bucle para obtener los detalles de cada item en la lista del usuario
+foreach ($actividad as &$item) {
+    $url = "https://api.jikan.moe/v4/{$item['tipo']}/{$item['mal_id']}";
+    $respuesta = file_get_contents($url);
+    $datos = json_decode($respuesta, true);
+    $item['datos_api'] = $datos['data'];
+    usleep(500000);
+}
+ // liberamos la variable para evitar problemas de referencia
+ unset($item); 
 
 
 
@@ -123,10 +137,23 @@ include __DIR__ . '/../includes/header.php';
 
 
         </div>
-        <div Class="actividad">
-            <h2>Actividad Reciente</h2>
-
-
+        <div class="actividad">
+            <h3>Actividad Reciente</h3>
+            <?php if (empty($actividad)): ?>
+                <p>Aún no tienes actividad.</p>
+            <?php else: ?>
+                <?php foreach ($actividad as $item): ?>
+                    <a href="/mywatchlist/pages/detalle.php?id=<?= $item['mal_id'] ?>&tipo=<?= $item['tipo'] ?>" class="item-actividad">
+                        <div class="item-actividad">
+                            <img src="<?= $item['datos_api']['images']['jpg']['image_url'] ?? '../img/img_site/default.jpg' ?>" alt="<?= $item['datos_api']['title'] ?? 'Imagen no disponible' ?>">
+                            <div>
+                                <p><?= $item['datos_api']['title'] ?? 'Título no disponible' ?></p>
+                                <p><?= ucfirst($item['estado']) ?> - <?= date('d/m/Y', strtotime($item['actualizado_en'])) ?></p>
+                            </div>
+                        </div>
+                    </a>
+                <?php endforeach; ?>
+            <?php endif; ?>
         </div>
     </main>
 </div>
