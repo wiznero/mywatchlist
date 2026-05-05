@@ -48,6 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             } else {
                 $_SESSION['usuario_id'] = $usuario_existe['id'];     // guardas datos
                 $_SESSION['usuario_nombre'] = $usuario_existe['user']; // guardas más datos
+                $_SESSION['usuario_foto'] = $usuario_existe['foto']; // guardas las foto de perfil
 
                 //volvemos a la pagina principal
                 header('Location: /mywatchlist/index.php');

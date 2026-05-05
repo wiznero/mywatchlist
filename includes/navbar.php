@@ -28,7 +28,7 @@
                 <?php if (isset($_SESSION['usuario_id'])): ?>
                     <li><a href="/mywatchlist/pages/mi_lista.php">Mi lista<span></span></a></li>
                     <li class="desplegable">
-                        <img src="/mywatchlist/assets/img/img_usuario/default.jpg" class="foto-perfil">
+                        <img src="/mywatchlist/<?= $_SESSION['usuario_foto'] ?? 'assets/img/img_usuario/default.jpg' ?>" alt="Foto de perfil" class="foto-perfil">
                         <div class="desplegable-menu">
                             <a href="/mywatchlist/pages/perfil.php">Perfil</a>
                             <a href="/mywatchlist/pages/ajustes.php">Ajustes</a>

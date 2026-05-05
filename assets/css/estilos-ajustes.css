@@ -1,0 +1,98 @@
+/* AJUSTES ---------------------------------------------------------- */
+
+.contenedor-ajustes {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+.cabecera-ajustes h1 {
+    font-size: 2rem;
+    font-weight: 800;
+    background: linear-gradient(to right, #ff2d78, #7c3aed);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 30px;
+}
+
+.seccion-ajuste {
+    background: #151515;
+    border-radius: 8px;
+    border: 1px solid #2a2a2a;
+    padding: 25px;
+    margin-bottom: 20px;
+}
+
+.seccion-ajuste h3 {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #8b8b8b;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #2a2a2a;
+}
+
+.foto-actual {
+    margin-bottom: 15px;
+}
+
+.foto-perfil-ajuste {
+    width: 100px !important;
+    height: 100px !important;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--color-rosa);
+    box-shadow: 0 0 15px rgba(255, 45, 120, 0.4);
+}
+
+.input-file {
+    color: #8b8b8b;
+    font-size: 0.85rem;
+    cursor: pointer;
+}
+
+.seccion-ajuste .input-oscuro {
+    margin-bottom: 10px;
+}
+
+.boton-guardar-ajustes {
+    width: 100%;
+    padding: 14px;
+    background: var(--color-rosa);
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 15px rgba(255, 45, 120, 0.4);
+}
+
+.boton-guardar-ajustes:hover {
+    background: #ff478a;
+    box-shadow: 0 0 25px rgba(255, 45, 120, 0.6);
+}
+
+.mensaje-exito {
+    background: rgba(0, 255, 100, 0.1);
+    border: 1px solid #00ff64;
+    color: #00ff64;
+    padding: 12px 15px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    font-size: 0.9rem;
+}
+
+.mensaje-error {
+    background: rgba(255, 45, 120, 0.1);
+    border: 1px solid var(--color-rosa);
+    color: var(--color-rosa);
+    padding: 12px 15px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    font-size: 0.9rem;
+}
