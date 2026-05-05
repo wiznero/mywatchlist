@@ -48,7 +48,8 @@ foreach ($actividad as &$item) {
     $url = "https://api.jikan.moe/v4/{$item['tipo']}/{$item['mal_id']}";
     $respuesta = file_get_contents($url);
     $datos = json_decode($respuesta, true);
-    $item['datos_api'] = $datos['data'];
+    // comprobamos que jikan devuelve datos antes de asignar
+    $item['datos_api'] = isset($datos['data']) ? $datos['data'] : null;
     usleep(500000);
 }
  // liberamos la variable para evitar problemas de referencia

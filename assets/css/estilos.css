@@ -246,9 +246,10 @@ ion-icon {
 
 .btn-primary{
     display: inline-block;
-    padding: 20px 20px;
+    padding: 10px 10px;
     border-radius: 25px;
     background-color: var(--color-rosa);
+    border: solid 2px var(--color-negro);
 }
 
 .btn-primary:hover{
@@ -256,9 +257,10 @@ ion-icon {
 }
 .btn-secondary{
     display: inline-block;
-    padding: 20px 20px;
+    padding: 10px 10px;
     border-radius: 25px;
     background-color: var(--color-rosa);
+    border: solid 2px var(--color-negro);
 }
 
 .btn-secondary:hover{

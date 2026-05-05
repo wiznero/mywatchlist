@@ -70,7 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <title>Login/registro</title>
 </head>
 <body>
-    
+
     <div class="container" id="container">
         <div class="form-container registro">
             <form action="" method="POST">
@@ -97,6 +97,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <p class="exito">¡Cuenta creada correctamente!</p>
                 <?php endif; ?>
                 <button>Crear cuenta</button>
+                <a href="/mywatchlist/index.php" class="btn-secondary">← Volver al inicio</a>
             </form>
         </div>
         <div class="form-container sign-in">
@@ -120,6 +121,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <p class="error"><?= $error ?></p>
                 <?php endif; ?>
                 <button>Iniciar sesión</button>
+                <a href="/mywatchlist/index.php" class="btn-secondary">← Volver al inicio</a>
             </form>
         </div>
         <div class="toggle-container">

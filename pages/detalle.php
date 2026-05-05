@@ -42,7 +42,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 // llamamos a Jikan 
 $respuesta = file_get_contents("https://api.jikan.moe/v4/{$tipo}/{$id}");
 $datos = json_decode($respuesta, true);
+// si jikan no devuelve datos redirigimos al inicio
+if (!$datos || !isset($datos['data'])) {
+    header('Location: /mywatchlist/index.php');
+    exit;
+}
 $item = $datos['data'];
+
+// llamamos a jikan para obtener los enlaces externos
+$respuesta_external = file_get_contents("https://api.jikan.moe/v4/{$tipo}/{$id}/external");
+$datos_external = json_decode($respuesta_external, true);
+$enlaces_externos = $datos_external['data'] ?? [];
 
 
 if (strtolower($tipo) == 'anime') {
@@ -131,6 +141,19 @@ include __DIR__ . '/../includes/header.php';
             <section class="seccion-sinopsis">
                 <h3>Sinopsis</h3>
                 <p class="sinopsis"><?= $item['synopsis'] ?? 'No hay una sinopsis disponible.'?></p>
+            </section>
+
+            <section class="seccion-links">
+                <h3>ENLACES PARA VER:</h3>
+                <div class="links">
+                    <?php if (!empty($enlaces_externos)): ?>
+                        <?php foreach ($enlaces_externos as $enlace): ?>
+                            <a href="<?= $enlace['url'] ?>" target="_blank" rel="noopener noreferrer"><?= $enlace['name'] ?></a>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <p>No hay enlaces disponibles.</p>
+                    <?php endif; ?>
+                </div>
             </section>
         </div>
 
