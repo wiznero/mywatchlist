@@ -37,11 +37,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
-    // bio y email
-    $stmt = $conn->prepare("UPDATE usuarios SET bio = ?, email = ? WHERE id = ?");
-    $stmt->execute([$nueva_bio, $nuevo_email, $_SESSION['usuario_id']]);
-
-    // contraseña
+    // bio y email--------------------------------------
+    // validamos que el email no este vacio antes de actualizar
+    try {
+        if (!empty($nuevo_email) && filter_var($nuevo_email, FILTER_VALIDATE_EMAIL)) {
+            $stmt = $conn->prepare("UPDATE usuarios SET bio = ?, email = ? WHERE id = ?");
+            $stmt->execute([$nueva_bio, $nuevo_email, $_SESSION['usuario_id']]);
+        } else {
+            $stmt = $conn->prepare("UPDATE usuarios SET bio = ? WHERE id = ?");
+            $stmt->execute([$nueva_bio, $_SESSION['usuario_id']]);
+        }
+    } catch (PDOException $e) {
+        // si el email ya esta en uso redirigimos con error
+        $error = 4;
+    }
+    // contraseña -------------------------------
     if ($nueva_contrasena !== '') {
         if ($nueva_contrasena === $confirmar_contrasena) {
             $hash = password_hash($nueva_contrasena, PASSWORD_DEFAULT);
@@ -74,8 +84,17 @@ include __DIR__ . '/../includes/header.php';
             <?php if (isset($_GET['success'])): ?>
                 <p class="mensaje-exito">Cambios guardados correctamente.</p>
             <?php endif; ?>
-            <?php if (isset($_GET['error'])): ?>
+            <?php if (isset($_GET['error']) && $_GET['error'] == 1): ?>
                 <p class="mensaje-error">Las contraseñas no coinciden.</p>
+            <?php endif; ?>
+            <?php if (isset($_GET['error']) && $_GET['error'] == 2): ?>
+                <p class="mensaje-error">Tipo de archivo no permitido.</p>
+            <?php endif; ?>
+            <?php if (isset($_GET['error']) && $_GET['error'] == 3): ?>
+                <p class="mensaje-error">La foto no puede superar 2MB.</p>
+            <?php endif; ?>
+            <?php if (isset($_GET['error']) && $_GET['error'] == 4): ?>
+                <p class="mensaje-error">Ese email ya está en uso.</p>
             <?php endif; ?>
             
             <!-- Seccion foto de perfil -->
