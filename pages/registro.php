@@ -44,7 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $consulta_log->execute([$email]);
         $usuario_existe = $consulta_log->fetch();
             if (!$usuario_existe || !password_verify($pass, $usuario_existe['contraseña'])) {
-                $error = "El email no existe";
+                $error = "El email no existe o la contraseña es incorrecta";
             } else {
                 $_SESSION['usuario_id'] = $usuario_existe['id'];     // guardas datos
                 $_SESSION['usuario_nombre'] = $usuario_existe['user']; // guardas más datos
@@ -84,7 +84,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <!-- <span>o registrate con tu correo</span> -->
                 <input type="text" name="nombre" placeholder="Nombre">
                 <input type="email" name="email" placeholder="Email">
-                <input type="password" name="password" placeholder="Contraseña">
+                <div class="input-password">
+                    <input type="password" id="password-registro" name="password" placeholder="Contraseña">
+                    <ion-icon name="eye-outline" id="toggle-password-registro"></ion-icon>
+                </div>
                 <input type="hidden" name="accion" value="registro">
                 <?php if (isset($error)): ?>
                 <p class="error"><?= $error ?></p>
@@ -107,9 +110,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 </div> -->
                 <!-- <span>o inicia sesion con tu correo</span> -->
                 <input type="email" name="email" placeholder="Email">
-                <input type="password" name="password" placeholder="Contraseña">
+                <div class="input-password">
+                    <input type="password" id="password" name="password" placeholder="Contraseña">
+                    <ion-icon name="eye-outline" id="toggle-password"></ion-icon>
+                </div>
                 <a href="#">¿has olvidado tu contraseña?</a>
                 <input type="hidden" name="accion" value="login">
+                <?php if (isset($error) && isset($_POST['accion']) && $_POST['accion'] == 'login'): ?>
+                    <p class="error"><?= $error ?></p>
+                <?php endif; ?>
                 <button>Iniciar sesión</button>
             </form>
         </div>
@@ -129,6 +138,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </div>
     </div>
 
+<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 <script src="../assets/js/login.js"></script>
 </body>
 </html>

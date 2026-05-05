@@ -217,4 +217,23 @@ body{
     transform: translateX(200%);
 }
 
+/* input de contraseña con icono de ojo -------------------------------- */
+.input-password {
+    position: relative;
+    width: 100%;
+}
+/* el input ocupa todo el ancho del contenedor */
+.input-password input {
+    width: 100%;
+}
+/* posicionamos el icono dentro del input a la derecha */
+.input-password ion-icon {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: gray;
+    font-size: 1.2em;
+}
 
