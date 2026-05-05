@@ -40,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $email = $_POST['email'];
         $pass = $_POST['password'];
 
-        $consulta_log = $conn->prepare("SELECT id, user, contraseña FROM usuarios WHERE email = ?");
+        $consulta_log = $conn->prepare("SELECT id, user, contraseña, foto FROM usuarios WHERE email = ?");
         $consulta_log->execute([$email]);
         $usuario_existe = $consulta_log->fetch();
             if (!$usuario_existe || !password_verify($pass, $usuario_existe['contraseña'])) {
