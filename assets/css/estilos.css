@@ -111,82 +111,6 @@ nav a:hover span{
     padding: 6px 20px;
 }
 
-.searchBox {
-    position: relative;
-    width: 45px;
-    height: 45px;
-    background-color: var(--color-rosa);
-    display: flex;
-    justify-content: flex-start;
-    transition: 0.5s;
-    overflow: hidden;
-    box-shadow: 0 25px 35px rgba(0,0,0,.1);
-    border-radius: 50%;    
-}
-
-.searchBox.active {
-    width: 360px;
-    border-radius: 15px;
-}
-
-.searchBox .search {
-    position: relative;
-    min-width: 45px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 1.5em;
-    cursor: pointer;
-}
-
-.searchBox .close {
-    position: relative;
-    width: 45px;
-    height: 45px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    font-size: 1.25em;
-    scale: 0;
-    transition: 0.5s;
-
-}
-
-.searchBox.active .close {
-    scale: 1;
-    transition-delay: 0.5s;
-    margin-left: auto;
-
-}
-
-.searchBox .searchInput {
-    position: absolute;
-    left: 60px;
-    width: calc(100% - 120px);
-    height: 100%;
-    line-height: 60px;
-
-}
-
-.searchBox .searchInput input {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    border: none;
-    outline: none;
-    font-size: 1.25em;
-    background-color: white;
-    cursor: text;
-}
-.searchBox .search ion-icon {
-    color: var(--color-negro);
-}
-
-ion-icon {
-    visibility: visible !important;
-    pointer-events: none;
-}
 
 /* imagen de perfil  ---------------------*/
 .foto-perfil {
@@ -231,6 +155,7 @@ ion-icon {
     display: flex;
     flex-direction: column;
     left: 80px;
+    gap: 30px;
 }
 
 .texto-hero h2{
@@ -377,6 +302,194 @@ footer {
     opacity: 0.5;
 }
 
+/* boton hamburguesa - oculto en escritorio */
+.hamburguesa {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.8em;
+    color: var(--color-texto);
+}
+
+/* version movil de los top - oculta en escritorio */
+.top-movil {
+    display: none;
+}
+
+/* ---- RESPONSIVE --------------------------------------------------------------------------------------------- */
+
+@media (max-width: 768px) {
+
+    /* navbar - mostramos hamburguesa y ocultamos menu */
+    .hamburguesa {
+        display: flex;
+        align-items: center;
+    }
+
+    .nav-logo img {
+        width: 120px;
+    }
+
+    .nav-menu {
+        display: none !important;
+        position: absolute;
+        top: 55px;
+        left: 0;
+        width: 100%;
+        background-color: var(--color-negro);
+        flex-direction: column;
+        padding: 20px;
+        gap: 15px;
+        border-top: 1px solid #333;
+        z-index: 999;
+    }
+
+    .nav-menu.activo {
+        display: flex !important;
+    }
+
+    .nav-menu li {
+        width: 100%;
+    }
+
+    .nav-menu a {
+        display: block;
+        padding: 10px 0;
+        font-size: 1.1em;
+    }
+
+    /* desplegable perfil dentro del menu hamburguesa */
+    .desplegable {
+        position: relative;
+    }
+
+    .desplegable-menu {
+        position: static;
+        display: none;
+        background-color: transparent;
+        padding: 0;
+        padding-left: 15px;
+        border-radius: 0;
+    }
+
+    .desplegable:hover .desplegable-menu {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    /* hero */
+    .hero {
+        min-height: 400px;
+        justify-content: center;
+    }
+
+    .texto-hero {
+        width: 90%;
+        gap: 15px;
+        text-align: center;
+        align-items: center;
+    }
+
+    .texto-hero h2 {
+        font-size: 2.5em;
+    }
+
+    .texto-hero p {
+        font-size: 1.5em;
+    }
+
+    /* tablet - carrusel visible con cards mas subidas */
+    .banner {
+        height: 60vh;
+    }
+
+    .banner .slider {
+        top: 30%;
+    }
+
+    .banner .slider .item {
+        transform:
+            rotateY(calc( (var(--position) - 1) * (360deg / var(--quantity)) ))
+            translateZ(200px);
+    }
+
+    .banner .text-content {
+        left: 50%;
+        transform: translateX(-50%);
+        text-align: center;
+        padding-top: 20px;
+    }
+
+    .banner .text-content h2 {
+        font-size: 3em;
+    }
+
+    /* footer */
+    .footer-container {
+        flex-direction: column;
+        text-align: center;
+    }
+}
+
+@media (max-width: 480px) {
+
+    /* navbar */
+    .nav-logo img {
+        width: 100px;
+    }
+
+    /* hero */
+    .texto-hero h2 {
+        font-size: 1.8em;
+    }
+
+    .texto-hero p {
+        font-size: 1.1em;
+    }
+
+    /* movil - ocultamos carrusel y mostramos version movil */
+    .banner {
+        display: none;
+    }
+
+    .top-movil {
+        display: flex;
+        overflow-x: auto;
+        gap: 15px;
+        padding: 15px;
+        scrollbar-width: none;
+    }
+
+    .card-movil {
+        flex-shrink: 0;
+        width: 130px;
+        text-align: center;
+    }
+
+    .card-movil img {
+        width: 130px;
+        height: 190px;
+        object-fit: cover;
+        border-radius: 8px;
+        border: 1px solid #2a2a2a;
+    }
+
+    .card-movil p:first-of-type {
+        font-size: 0.8em;
+        margin-top: 5px;
+        color: var(--color-texto);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .card-movil p:last-of-type {
+        font-size: 0.75em;
+        color: var(--color-rosa);
+    }
+}
 
 
 

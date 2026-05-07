@@ -24,10 +24,19 @@ $consulta_favmanga = $conn->prepare("SELECT mal_id, tipo, calificacion FROM list
 $consulta_favmanga->execute([$_SESSION['usuario_id']]);
 $favmanga = $consulta_favmanga->fetch(PDO::FETCH_ASSOC);
 
-//consulta total capitulos/episodios vistos
-$consulta_total_vistos = $conn->prepare("SELECT SUM(progreso) as total_progreso FROM lista_usuarios WHERE id_usuarios = ? AND estado IN ('viendo', 'completado')");
+// consulta total capitulos/episodios vistos separado por tipo
+$consulta_total_vistos = $conn->prepare("SELECT tipo, SUM(progreso) as total_progreso FROM lista_usuarios WHERE id_usuarios = ? AND estado IN ('viendo', 'completado') GROUP BY tipo");
 $consulta_total_vistos->execute([$_SESSION['usuario_id']]);
-$total_vistos = $consulta_total_vistos->fetch(PDO::FETCH_ASSOC)['total_progreso'] ?? 0;
+$vistos_por_tipo = $consulta_total_vistos->fetchAll(PDO::FETCH_ASSOC);
+
+// organizamos los datos por tipo
+$progreso_anime = 0;
+$progreso_manga = 0;
+foreach ($vistos_por_tipo as $fila) {
+    if ($fila['tipo'] === 'anime') $progreso_anime = $fila['total_progreso'];
+    if ($fila['tipo'] === 'manga') $progreso_manga = $fila['total_progreso'];
+}
+$total_vistos = $progreso_anime + $progreso_manga;
 
 $stats = [];
 foreach ($estadisticas_lista as $item) {
@@ -73,8 +82,17 @@ if ($favmanga) {
 $total_anime = ($stats['anime']['completado'] ?? 0) + ($stats['anime']['viendo'] ?? 0);
 $total_manga = ($stats['manga']['completado'] ?? 0) + ($stats['manga']['viendo'] ?? 0);
 $total = $total_anime + $total_manga;
-$porcentaje_anime = $total > 0 ? round(($total_anime / $total) * 100) : 0;
-$porcentaje_manga = $total > 0 ? round(($total_manga / $total) * 100) : 0;
+// porcentajes de items en la lista
+$porcentaje_items_anime = $total > 0 ? round(($total_anime / $total) * 100) : 0;
+$porcentaje_items_manga = $total > 0 ? round(($total_manga / $total) * 100) : 0;
+// porcentajes de progreso
+$porcentaje_anime = $total_vistos > 0 ? round(($progreso_anime / $total_vistos) * 100) : 0;
+$porcentaje_manga = $total_vistos > 0 ? round(($progreso_manga / $total_vistos) * 100) : 0;
+
+// calculamos el ratio de finalizacion
+$total_completados = ($stats['anime']['completado'] ?? 0) + ($stats['manga']['completado'] ?? 0);
+$total_abandonados = ($stats['anime']['abandonado'] ?? 0) + ($stats['manga']['abandonado'] ?? 0);
+$ratio_finalizacion = ($total_completados + $total_abandonados) > 0 ? round(($total_completados / ($total_completados + $total_abandonados)) * 100) : 0;
 
 
 
@@ -107,12 +125,12 @@ include __DIR__ . '/../includes/header.php';
                 <span class="stat-label">Total visto</span>
                 <span class="stat-valor"><?= $total ?></span>
                 <div class="stat-barras">
-                    <div class="stat-barra-anime" style="width: <?= $porcentaje_anime ?>%"></div>
-                    <div class="stat-barra-manga" style="width: <?= $porcentaje_manga ?>%"></div>
+                    <div class="stat-barra-anime" style="width: <?= $porcentaje_items_anime ?>%"></div>
+                    <div class="stat-barra-manga" style="width: <?= $porcentaje_items_manga ?>%"></div>
                 </div>
                 <div class="stat-porcentajes">
-                    <span>Anime <?= $porcentaje_anime ?>%</span>
-                    <span>Manga <?= $porcentaje_manga ?>%</span>
+                    <span>Anime <?= $porcentaje_items_anime ?>%</span>
+                    <span>Manga <?= $porcentaje_items_manga ?>%</span>
                 </div>
             </div>
             <div class="stat">
@@ -125,6 +143,18 @@ include __DIR__ . '/../includes/header.php';
                 <div class="stat-porcentajes">
                     <span>Anime <?= $porcentaje_anime ?>%</span>
                     <span>Manga <?= $porcentaje_manga ?>%</span>
+                </div>
+            </div>
+            <div class="stat stat-ancho">
+                <span class="stat-label">Ratio de finalización</span>
+                <span class="stat-valor"><?= $ratio_finalizacion ?>%</span>
+                <div class="stat-barras">
+                    <div class="stat-barra-anime" style="width: <?= $ratio_finalizacion ?>%"></div>
+                    <div class="stat-barra-manga" style="width: <?= 100 - $ratio_finalizacion ?>%"></div>
+                </div>
+                <div class="stat-porcentajes">
+                    <span>Completados <?= $total_completados ?></span>
+                    <span>Abandonados <?= $total_abandonados ?></span>
                 </div>
             </div>
         </div>

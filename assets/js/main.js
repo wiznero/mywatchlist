@@ -1,22 +1,8 @@
 
 
-
-
-// JS para la barra de busqueda
-// let search = document.querySelector('.search');
-// let cerrar = document.querySelector('.close');
-// let searchBox = document.querySelector('.searchBox');
-// search.onclick = function () {
-//     searchBox.classList.add('active');
-// }
-// cerrar.onclick = function () {
-//     searchBox.classList.remove('active'); 
-// }
-
-// JS para los inputs del progreso de detalle.php
 document.addEventListener('DOMContentLoaded', function() {
-    
-    // 1. Selector para la Calificación
+    // JS para los inputs del progreso de detalle.php
+    // Selector para la Calificación
     const inputCalificacion = document.getElementById('calificacion');
     const valorCalificacion = document.getElementById('calificacion-valor');
 
@@ -26,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // 2. Selector para el Progreso
+    // Selector para el Progreso
     const inputProgreso = document.getElementById('progreso');
     const valorProgreso = document.getElementById('progreso-valor');
 
@@ -35,6 +21,14 @@ document.addEventListener('DOMContentLoaded', function() {
             valorProgreso.innerText = this.value;
         });
     }
+
+    // JS para el menu hamburguesa
+    const hamburguesa = document.getElementById('hamburguesa');
+    const navMenu = document.querySelector('.nav-menu');
+
+    hamburguesa.addEventListener('click', () => {
+        navMenu.classList.toggle('activo');
+    });
 });
 
 
