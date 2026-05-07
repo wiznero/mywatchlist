@@ -332,3 +332,59 @@
     color: #8b8b8b;
     font-size: 0.9rem;
 }
+
+@media (max-width: 768px) {
+
+    /* cabecera */
+    .cabecera-perfil {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .nombre-fecha {
+        flex-direction: column;
+        align-items: center;
+        gap: 5px;
+    }
+
+    /* favoritos en una columna */
+    .favoritos {
+        grid-template-columns: 1fr;
+    }
+
+    /* distribucion en una columna */
+    .estadisticas-especificas {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+
+    /* estadisticas en una columna */
+    .estadisticas-generales {
+        grid-template-columns: 1fr;
+    }
+
+    .stat-ancho {
+        grid-column: 1;
+    }
+
+    /* cabecera mas compacta */
+    .cabecera-perfil {
+        padding: 15px;
+    }
+
+    .cabecera-perfil .foto-perfil {
+        width: 80px;
+        height: 80px;
+    }
+
+    .cabecera-perfil h1 {
+        font-size: 1.5rem;
+    }
+
+    /* actividad en movil */
+    .item-actividad {
+        border-radius: 15px;
+    }
+}

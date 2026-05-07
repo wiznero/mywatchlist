@@ -57,6 +57,7 @@ $top_mangas = $datos_manga['data'];
             </div>
         </div>
         <!-- version movil top animes - se oculta en escritorio -->
+        <h2 class="titulo-movil">TOP ANIMES</h2>
         <div class="top-movil">
             <?php foreach ($top_animes as $anime): ?>
                 <a href="/mywatchlist/pages/detalle.php?id=<?= $anime['mal_id'] ?>&tipo=anime" class="card-movil">
@@ -85,15 +86,17 @@ $top_mangas = $datos_manga['data'];
                 <h2>TOP MANGAS: </h2>
             </div>
         </div>
-        <!-- version movil top animes - se oculta en escritorio -->
+        <!-- version movil top mangas - se oculta en escritorio -->
+         <h2 class="titulo-movil">TOP MANGAS</h2>
         <div class="top-movil">
-            <?php foreach ($top_animes as $anime): ?>
-                <a href="/mywatchlist/pages/detalle.php?id=<?= $anime['mal_id'] ?>&tipo=anime" class="card-movil">
-                    <img src="<?= $anime['images']['jpg']['large_image_url'] ?>" alt="<?= $anime['title'] ?>">
-                    <p><?= $anime['title'] ?></p>
-                    <p><?= $anime['score'] ?></p>
+            <?php foreach ($top_mangas as $manga): ?>
+                <a href="/mywatchlist/pages/detalle.php?id=<?= $manga['mal_id'] ?>&tipo=manga" class="card-movil">
+                    <img src="<?= $manga['images']['jpg']['large_image_url'] ?>" alt="<?= $manga['title'] ?>">
+                    <p><?= $manga['title'] ?></p>
+                    <p><?= $manga['score'] ?></p>
                 </a>
             <?php endforeach; ?>
+        </div>
 
     </section>
 </main>
