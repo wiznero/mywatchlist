@@ -61,9 +61,9 @@ include __DIR__ . '/../includes/header.php';
                 <a href="/mywatchlist/pages/detalle.php?id=<?= $item['mal_id'] ?>&tipo=<?= $item['tipo'] ?>">
                     <img src="<?= $item['datos_api']['images']['jpg']['large_image_url'] ?>" alt="">
                 </a>
-                <h3><?= $item['datos_api']['title'] ?></h3>
-                <p>Estado: <?= $item['estado'] ?></p>
-                <p>Progreso: <?= $item['progreso'] ?></p>
+                <h3><?= htmlspecialchars($item['datos_api']['title']) ?></h3>
+                <p>Estado: <?= htmlspecialchars($item['estado']) ?></p>
+                <p>Progreso: <?= htmlspecialchars($item['progreso']) ?></p>
             </div>
         <?php endforeach; ?>
     </div>

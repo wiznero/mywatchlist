@@ -112,10 +112,10 @@ include __DIR__ . '/../includes/header.php';
             <img src="/mywatchlist/assets/img/img_usuario/<?= basename($perfil['foto']) ?>" alt="Foto de perfil" class="foto-perfil">
             <div class="info-perfil">
                 <div class="nombre-fecha">
-                    <h1><?= $_SESSION['usuario_nombre'] ?></h1>
+                    <h1><?= htmlspecialchars($_SESSION['usuario_nombre']) ?></h1>
                     <span>otaku desde <?= date('Y', strtotime($perfil['fecha_registro'])) ?></span>
                 </div>
-                <p class="bio"><?= $perfil['bio'] ?></p>
+                <p class="bio"><?= htmlspecialchars($perfil['bio']) ?></p>
             </div>
         </div>
 

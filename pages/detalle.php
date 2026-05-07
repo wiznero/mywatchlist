@@ -94,7 +94,7 @@ include __DIR__ . '/../includes/header.php';
                 <span class="etiqueta etiqueta-estado"><?=  $item['status'] ?></span>
             </div>
 
-            <h1 class="titulo"><?= $item['title'] ?></h1>
+            <h1 class="titulo"><?= htmlspecialchars($item['title']) ?></h1>
             <h2 class="subtitulo-estudio"><?= $estudio ?></h2>
 
 
@@ -140,7 +140,7 @@ include __DIR__ . '/../includes/header.php';
 
             <section class="seccion-sinopsis">
                 <h3>Sinopsis</h3>
-                <p class="sinopsis"><?= $item['synopsis'] ?? 'No hay una sinopsis disponible.'?></p>
+                <p class="sinopsis"><?= htmlspecialchars($item['synopsis']) ?? 'No hay una sinopsis disponible.'?></p>
             </section>
 
             <section class="seccion-links">
