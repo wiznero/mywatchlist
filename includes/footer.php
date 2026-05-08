@@ -8,8 +8,16 @@
             <a href="/mywatchlist/index.php">Inicio</a>
             <a href="/mywatchlist/pages/catalogo-animes.php">Anime</a>
             <a href="/mywatchlist/pages/catalogo-mangas.php">Manga</a>
+            <?php if (!isset($_SESSION['usuario_id'])): ?>
+                <a href="/mywatchlist/pages/registro.php">Crear cuenta</a>
+            <?php endif; ?>
+            <?php if (isset($_SESSION['usuario_id'])): ?>
+                <a href="/mywatchlist/pages/mi_lista.php">Mi lista</a>
+            <?php endif; ?>
+
         </div>
-        <p class="footer-copy">© 2026 Mywatchlist · Sergio Gil · Proyecto Final DAW</p>
+        <p class="footer-copy">© <?= date('Y') ?> Mywatchlist · Sergio Gil · Proyecto Final DAW <br> Datos proporcionados por JIKAN API</p>
+        
     </div>
 </footer>
 
