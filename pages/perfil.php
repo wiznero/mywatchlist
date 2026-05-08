@@ -44,38 +44,25 @@ foreach ($estadisticas_lista as $item) {
 }
 
 // consulta para obtener la actividad reciente
-$consulta_actividad = $conn->prepare("SELECT * FROM lista_usuarios WHERE id_usuarios = ? ORDER BY actualizado_en DESC LIMIT 5");
+$consulta_actividad = $conn->prepare("SELECT * FROM lista_usuarios WHERE id_usuarios = ? ORDER BY actualizado_en DESC LIMIT 3");
 $consulta_actividad->execute([$_SESSION['usuario_id']]);
 $actividad = $consulta_actividad->fetchAll(PDO::FETCH_ASSOC);
 
 // formateamos para que solo nos de la fecha, no la hora
 date('d/m/Y', strtotime($perfil['fecha_registro']));
-
-
-// llamamos a Jikan en un bucle para obtener los detalles de cada item en la lista del usuario
-foreach ($actividad as &$item) {
-    $url = "https://api.jikan.moe/v4/{$item['tipo']}/{$item['mal_id']}";
-    $respuesta = file_get_contents($url);
-    $datos = json_decode($respuesta, true);
-    // comprobamos que jikan devuelve datos antes de asignar
-    $item['datos_api'] = isset($datos['data']) ? $datos['data'] : null;
-    usleep(500000);
-}
- // liberamos la variable para evitar problemas de referencia
- unset($item);
  
  // llamamos a jikan para obtener los datos del anime favorito
 if ($favanime) {
     $respuesta_favanime = file_get_contents("https://api.jikan.moe/v4/anime/{$favanime['mal_id']}");
     $favanime['datos_api'] = json_decode($respuesta_favanime, true)['data'];
-    usleep(500000);
+    usleep(300000);
 }
 
 // llamamos a jikan para obtener los datos del manga favorito
 if ($favmanga) {
     $respuesta_favmanga = file_get_contents("https://api.jikan.moe/v4/manga/{$favmanga['mal_id']}");
     $favmanga['datos_api'] = json_decode($respuesta_favmanga, true)['data'];
-    usleep(500000);
+    usleep(300000);
 }
 
 // calculamos los porcentajes para mostrarlos el perfil  
@@ -243,9 +230,9 @@ include __DIR__ . '/../includes/header.php';
             <?php else: ?>
                 <?php foreach ($actividad as $item): ?>
                     <a href="/mywatchlist/pages/detalle.php?id=<?= $item['mal_id'] ?>&tipo=<?= $item['tipo'] ?>" class="item-actividad">
-                        <img src="<?= $item['datos_api']['images']['jpg']['image_url'] ?? '../img/img_site/default.jpg' ?>" alt="<?= $item['datos_api']['title'] ?? 'Imagen no disponible' ?>">
+                        <img src="<?= $item['imagen'] ?? '../img/img_site/default.jpg' ?>" alt="<?= htmlspecialchars($item['titulo'])?? 'Imagen no disponible' ?>">
                         <div>
-                            <p><?= $item['datos_api']['title'] ?? 'Título no disponible' ?></p>
+                            <p><?= htmlspecialchars($item['titulo']) ?? 'Título no disponible' ?></p>
                             <p><?= ucfirst($item['estado']) ?> - <?= date('d/m/Y', strtotime($item['actualizado_en'])) ?></p>
                         </div>
                     </a>

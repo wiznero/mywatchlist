@@ -2,7 +2,7 @@
 <footer>
     <div class="footer-container">
         <div class="footer-logo">
-            <img src="/mywatchlist/assets/img/img_site/logo-transparent.png" alt="Mywatchlist">
+            <a href="/mywatchlist/index.php"><img src="/mywatchlist/assets/img/img_site/logo-transparent.png" alt="Mywatchlist"></a>
         </div>
         <div class="footer-links">
             <a href="/mywatchlist/index.php">Inicio</a>

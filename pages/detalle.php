@@ -23,16 +23,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $calificacion = $_POST['calificacion'] ?? 0;
     $progreso = $_POST['progreso'] ?? 0;
     $notas = $_POST['notas'] ?? '';
+    $titulo = $_POST['titulo'] ?? '';
+    $imagen = $_POST['imagen'] ?? '';
 
     // usamos la consulta on DUPLICATE KEY UPDATE para insertar o actualizar el progreso del usuario
-    $añadir_lista = $conn->prepare("INSERT INTO lista_usuarios (id_usuarios, mal_id, tipo, estado, calificacion, progreso, notas)
-    VALUES (?, ?, ?, ?, ?, ?, ?)
+    $añadir_lista = $conn->prepare("INSERT INTO lista_usuarios (id_usuarios, mal_id, tipo, estado, calificacion, progreso, notas,titulo,imagen)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
     ON DUPLICATE KEY UPDATE 
         estado = VALUES(estado),
         calificacion = VALUES(calificacion),
         progreso = VALUES(progreso),
-        notas = VALUES(notas)");
-    $añadir_lista->execute([$id_usuario, $item_id, $item_tipo, $estado, $calificacion, $progreso, $notas]);
+        notas = VALUES(notas),
+        titulo = VALUES(titulo),
+        imagen = VALUES(imagen)");
+    $añadir_lista->execute([$id_usuario, $item_id, $item_tipo, $estado, $calificacion, $progreso, $notas, $titulo, $imagen]);
     header("Location: detalle.php?id={$item_id}&tipo={$item_tipo}&guardado=1");
     exit;
 
@@ -165,6 +169,8 @@ include __DIR__ . '/../includes/header.php';
                     <form action="" method="POST">
                         <input type="hidden" name="item_id" value="<?= $id ?>">
                         <input type="hidden" name="item_tipo" value="<?= $tipo ?>">
+                        <input type="hidden" name="titulo" value="<?= htmlspecialchars($item['title']) ?>">
+                        <input type="hidden" name="imagen" value="<?= $item['images']['jpg']['image_url'] ?>">
                         
                         <div class="grupo-form">
                             <label for="estado">Estado</label>
