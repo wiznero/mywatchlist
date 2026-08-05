@@ -127,12 +127,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <div class="toggle-container">
             <div class="toggle">
                 <div class="toggle-panel toggle-left">
-                    <h1>¡Bienvenido de nuevo!</h1>
+                    <h1>¡Bienvenido!</h1>
                     <p>Inicia sesion con tus datos</p>
                     <button class="hidden" id="login">Entrar</button>
                 </div>
                 <div class="toggle-panel toggle-right">
-                    <h1>¡Bienvenido!</h1>
+                    <h1>¡Bienvenido De Nuevo!</h1>
                     <p>Regístrate para comenzar</p>
                     <button class="hidden" id="register">Crear cuenta</button>
                 </div>
