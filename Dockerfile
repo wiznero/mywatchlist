@@ -1,10 +1,7 @@
-FROM dunglas/frankenphp
+FROM php:8.2-apache
 
-# Extensiones de PHP
-RUN install-php-extensions pdo_mysql mysqli
+# Instalar las extensiones de MySQL para PDO y MySQLi
+RUN docker-php-ext-install pdo pdo_mysql mysqli
 
-# Directorio de trabajo
-WORKDIR /app
-
-# Copiar todo el contenido del proyecto
-COPY . .                                                   
+# Copiar todo el código a la carpeta raíz de Apache
+COPY . /var/www/html/                                              

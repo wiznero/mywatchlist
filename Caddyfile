@@ -1,4 +1,0 @@
-{$SERVER_NAME}
-
-root * /app
-php_server
