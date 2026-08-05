@@ -1,13 +1,13 @@
 FROM dunglas/frankenphp
 
-# Instalar las extensiones de PHP necesarias para MySQL
+# Extensiones de PHP
 RUN install-php-extensions pdo_mysql mysqli
 
-# Establecer el directorio de trabajo
+# Definir directorio de trabajo
 WORKDIR /app
 
-# Copiar todo el código de tu proyecto al contenedor
+# Copiar el proyecto
 COPY . /app
 
-# Indicar a FrankenPHP que sirva los archivos desde la raíz de /app
-CMD ["frankenphp", "php-server", "--root", "/app"]
+# Indicar el directorio raíz del sitio web
+ENV FRANKENPHP_CONFIG="root /app"
