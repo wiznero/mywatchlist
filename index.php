@@ -26,9 +26,9 @@ $top_mangas = $respuesta_manga ? (json_decode($respuesta_manga, true)['data'] ??
             <?php endif; ?>
             <p>Lleva el control de tu anime y manga favorito</p>
             <div class="hero-botones">
-                <a href="/mywatchlist/pages/catalogo-animes.php" class="btn-primary">Explorar</a>
+                <a href="/pages/catalogo-animes.php" class="btn-primary">Explorar</a>
                 <?php if (!isset($_SESSION['usuario_id'])): ?>
-                    <a href="/mywatchlist/pages/registro.php" class="btn-secondary">Crear cuenta</a>
+                    <a href="/pages/registro.php" class="btn-secondary">Crear cuenta</a>
                 <?php endif; ?>
             </div>
         </div>
@@ -40,7 +40,7 @@ $top_mangas = $respuesta_manga ? (json_decode($respuesta_manga, true)['data'] ??
             <div class="slider" style="--quantity: <?= count($top_animes) ?>">
                 <?php foreach ($top_animes as $indice => $anime): ?>
                     <div class="item" style="--position: <?= $indice + 1?>">
-                        <a href="/mywatchlist/pages/detalle.php?id=<?= $anime['mal_id'] ?>&tipo=anime">
+                        <a href="/pages/detalle.php?id=<?= $anime['mal_id'] ?>&tipo=anime">
                         <img src="<?= $anime['images']['jpg']['large_image_url'] ?>" alt="">
                         </a>
                         <div class="content">
@@ -58,7 +58,7 @@ $top_mangas = $respuesta_manga ? (json_decode($respuesta_manga, true)['data'] ??
         <h2 class="titulo-movil">TOP ANIMES</h2>
         <div class="top-movil">
             <?php foreach ($top_animes as $anime): ?>
-                <a href="/mywatchlist/pages/detalle.php?id=<?= $anime['mal_id'] ?>&tipo=anime" class="card-movil">
+                <a href="/pages/detalle.php?id=<?= $anime['mal_id'] ?>&tipo=anime" class="card-movil">
                     <img src="<?= $anime['images']['jpg']['large_image_url'] ?>" alt="<?= $anime['title'] ?>">
                     <p><?= $anime['title'] ?></p>
                     <p><?= $anime['score'] ?></p>
@@ -70,7 +70,7 @@ $top_mangas = $respuesta_manga ? (json_decode($respuesta_manga, true)['data'] ??
             <div class="slider" style="--quantity: <?= count($top_mangas) ?>">
                 <?php foreach ($top_mangas as $indice => $manga): ?>
                     <div class="item" style="--position: <?= $indice + 1?>">
-                        <a href="/mywatchlist/pages/detalle.php?id=<?= $manga['mal_id'] ?>&tipo=manga">
+                        <a href="/pages/detalle.php?id=<?= $manga['mal_id'] ?>&tipo=manga">
                         <img src="<?= $manga['images']['jpg']['large_image_url'] ?>" alt="">
                         </a>
                         <div class="content">
@@ -88,7 +88,7 @@ $top_mangas = $respuesta_manga ? (json_decode($respuesta_manga, true)['data'] ??
          <h2 class="titulo-movil">TOP MANGAS</h2>
         <div class="top-movil">
             <?php foreach ($top_mangas as $manga): ?>
-                <a href="/mywatchlist/pages/detalle.php?id=<?= $manga['mal_id'] ?>&tipo=manga" class="card-movil">
+                <a href="/pages/detalle.php?id=<?= $manga['mal_id'] ?>&tipo=manga" class="card-movil">
                     <img src="<?= $manga['images']['jpg']['large_image_url'] ?>" alt="<?= $manga['title'] ?>">
                     <p><?= $manga['title'] ?></p>
                     <p><?= $manga['score'] ?></p>
