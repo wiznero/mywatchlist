@@ -29,8 +29,10 @@ if ($formato) $jikan_url .= "type=" . urlencode($formato) . "&";
 if ($pagina) $jikan_url .= "page=" . urlencode($pagina) . "&";
 
 // llamamos a Jikan 
-$respuesta = file_get_contents($jikan_url);
-$datos = json_decode($respuesta, true);
+// Le ponemos la @ para ocultar el warning si Jikan se cae
+$respuesta = @file_get_contents($jikan_url);
+// Comprobamos si hay respuesta antes de decodificar
+$datos = $respuesta ? json_decode($respuesta, true) : [];
 $animes_emision = $datos['data'] ?? [];
 // var_dump($animes_emision);
 
