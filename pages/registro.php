@@ -97,7 +97,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <p class="exito">¡Cuenta creada correctamente!</p>
                 <?php endif; ?>
                 <button>Crear cuenta</button>
-                <a href="/mywatchlist/index.php" class="btn-secondary">← Volver al inicio</a>
+                <a href="/index.php" class="btn-secondary">← Volver al inicio</a>
             </form>
         </div>
         <div class="form-container sign-in">
@@ -121,7 +121,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <p class="error"><?= $error ?></p>
                 <?php endif; ?>
                 <button>Iniciar sesión</button>
-                <a href="/mywatchlist/index.php" class="btn-secondary">← Volver al inicio</a>
+                <a href="/index.php" class="btn-secondary">← Volver al inicio</a>
             </form>
         </div>
         <div class="toggle-container">
