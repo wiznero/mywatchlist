@@ -7,13 +7,11 @@ include 'includes/header.php';
 
 <?php
 // llamamos a Jikan para traer el top de animes
-$respuesta = file_get_contents('https://api.jikan.moe/v4/top/anime?limit=6');
-$datos = json_decode($respuesta, true);
-$top_animes = $datos['data'];
+$respuesta = @file_get_contents('https://api.jikan.moe/v4/top/anime?limit=6');
+$top_animes = $respuesta ? (json_decode($respuesta, true)['data'] ?? []) : [];
 // llamamos a Jikan para traer el top de Mangas
-$respuesta_manga = file_get_contents('https://api.jikan.moe/v4/top/manga?limit=6');
-$datos_manga = json_decode($respuesta_manga, true);
-$top_mangas = $datos_manga['data'];
+$respuesta_manga = @file_get_contents('https://api.jikan.moe/v4/top/manga?limit=6');
+$top_mangas = $respuesta_manga ? (json_decode($respuesta_manga, true)['data'] ?? []) : [];
 
 ?>
 
